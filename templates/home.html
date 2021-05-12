@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block body %}
+    <div class="hero-image">
+        <div class="hero-text">
+            <h1 style="fote-size:200px">燃烧吧，少年！</h1>
+        </div>
+    </div>
+
+    <!--table-->
+    <div class="card">
+        <h2 class="card-header">火影出场人物</h2>
+        <div class="card-body">
+            <table class="table table-hover table-bordered table-striped">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">名字</th>
+                    <th scope="col">身高</th>
+                    <th scope="col">年龄</th>
+                    <th scope="col">绝技</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in idols %}
+                    <tr>
+                        <td>{{ row.id }}</td>
+                        <td>{{ row.name }}</td>
+                        <td>{{ row.height }}</td>
+                        <td>{{ row.age }}</td>
+                        <td>{{ row.shows }}</td>
+                        <td>
+                            <button type="button" class="btn btn-warning">编辑</button>
+                            <button type="button" class="btn btn-danger">删除</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#addNew">增加一位忍者</button>
+        </div>
+    </div>
+
+    <!--model:添加一位忍者--->
+
+    <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">增加一位忍者</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url_for('insert') }} " method="POST">
+                        <div class="form-group">
+                            <label>名字：</label>
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label>身高：</label>
+                            <input type="text" class="form-control" name="height">
+                        </div>
+                        <div class="form-group">
+                            <label>年龄：</label>
+                            <input type="text" class="form-control" name="age">
+                        </div>
+                        <div class="form-group">
+                            <label>绝技：</label>
+                            <input type="text" class="form-control" name="shows">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                            <button type="submit" class="btn btn-primary">添加</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
