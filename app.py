@@ -50,6 +50,20 @@ def delete(id):
     db.session.commit()
     return redirect(url_for("home"))
 
+@app.route('/update', methods=['GET', 'POST'])
+def update():
+    if request.method == "POST":
+        update_id = request.form.get('id')
+        update_data = idols.query.get(update_id)
+        update_data.name = request.form['name']
+        update_data.height = request.form['height']
+        update_data.age = request.form['age']
+        update_data.shows = request.form['shows']
+        db.session.commit()
+        return redirect(url_for("home"))
+    else:
+        return redirect(url_for("home"))
+
 
 if __name__ == '__main__':
     app.run()
